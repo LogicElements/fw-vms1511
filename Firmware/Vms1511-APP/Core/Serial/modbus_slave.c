@@ -701,12 +701,14 @@ static Status_t MbSlave_CRC16(MbSlave_Frame_t *frame)
 static void MbSlave_Rs485DirTransmit(void)
 {
   HAL_GPIO_WritePin(MODBUS_UART_DE_PORT,  MODBUS_UART_DE_PIN, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(MODBUS_UART_RE_PORT,  MODBUS_UART_RE_PIN, GPIO_PIN_SET);
 }
 
 
 static void MbSlave_Rs485DirReceive(void)
 {
   HAL_GPIO_WritePin(MODBUS_UART_DE_PORT, MODBUS_UART_DE_PIN, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(MODBUS_UART_RE_PORT, MODBUS_UART_RE_PIN, GPIO_PIN_RESET);
 }
 
 /* Private Functions ---------------------------------------------------------*/

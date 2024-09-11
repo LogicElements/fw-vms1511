@@ -33,19 +33,19 @@
 #define SWITCH_NUMBER           10          ///< Number of supported DIP switches
 
 #define SWITCH_1_PORT     GPIOB
-#define SWITCH_1_PIN      GPIO_PIN_9
+#define SWITCH_1_PIN      GPIO_PIN_7
 
 #define SWITCH_2_PORT     GPIOB
-#define SWITCH_2_PIN      GPIO_PIN_8
+#define SWITCH_2_PIN      GPIO_PIN_6
 
 #define SWITCH_3_PORT     GPIOB
-#define SWITCH_3_PIN      GPIO_PIN_7
+#define SWITCH_3_PIN      GPIO_PIN_5
 
 #define SWITCH_4_PORT     GPIOB
-#define SWITCH_4_PIN      GPIO_PIN_6
+#define SWITCH_4_PIN      GPIO_PIN_4
 
 #define SWITCH_5_PORT     GPIOB
-#define SWITCH_5_PIN      GPIO_PIN_5
+#define SWITCH_5_PIN      GPIO_PIN_3
 
 #define SWITCH_6_PORT     GPIOB
 #define SWITCH_6_PIN      GPIO_PIN_12

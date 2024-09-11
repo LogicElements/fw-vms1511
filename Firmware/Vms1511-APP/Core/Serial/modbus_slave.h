@@ -47,7 +47,10 @@
 #define MODBUS_UART_TX_PIN        GPIO_PIN_2         ///< MODBUS UART Tx Port
 
 #define MODBUS_UART_DE_PORT       GPIOA               ///< MODBUS UART DE Port
-#define MODBUS_UART_DE_PIN        GPIO_PIN_1         ///< MODBUS UART DE Pin
+#define MODBUS_UART_DE_PIN        GPIO_PIN_4         ///< MODBUS UART DE Pin
+
+#define MODBUS_UART_RE_PORT       GPIOA               ///< MODBUS UART DE Port
+#define MODBUS_UART_RE_PIN        GPIO_PIN_5         ///< MODBUS UART DE Pin
 
 #define MODBUS_TIM_INSTANCE                 TIM3
 #define MODBUS_TIM_CLK_ENABLE               __HAL_RCC_TIM3_CLK_ENABLE
