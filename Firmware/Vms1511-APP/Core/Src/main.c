@@ -38,6 +38,7 @@
 #include "control.h"
 #include "flash_app.h"
 #include "led.h"
+#include "parset.h"
 
 /* USER CODE END Includes */
 
@@ -49,17 +50,6 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 
-#define I2CEXPANDERADDRESS	64;	// 7 Bit sequence - 0 1 0 0 0 0 0 0 - 0 1 0 0 (fixed) A2 A1 A0 R/W	A2,A1,A0 == 0, R/W == 0 --> Write
-
-// I2C Register bank address
-// All for settings IOCON.BANK = 0	(IOCON register byte 7)
-#define I2CIOCONADDRESS		0x0A;
-#define I2CGPIOA			0x12;
-#define I2CGPIOB			0x13;
-#define I2CIODIRAADDRESS	0x00;
-#define I2CIODIRBADDRESS	0x01;
-
-//	After reset set I2CIODIRx register 0000 0000 --> GPIOx 0-7 == Output pins
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -106,10 +96,6 @@ int main(void)
 
   /* USER CODE BEGIN Init */
 
-	uint8_t data_buffer[2];
-	uint16_t expander_address = I2CEXPANDERADDRESS;
-	uint16_t gpioaaddress = I2CGPIOA;
-
 	amp_gain_t current_gain = GAIN_1;
 	amp_load_t current_load = LOAD_100R;
 
@@ -144,17 +130,7 @@ int main(void)
 	HAL_GPIO_WritePin(I2C_NRST_GPIO_Port, I2C_NRST_Pin, 1);
 
 	int i = 0;	// For MCU_LED blink
-
-
-	// set IODIRA register 0000 0000 == all GPIOA´s pins are output (reset state is all input)
-	data_buffer[0] = 0;
-	data_buffer[1] = 0;
-	HAL_I2C_Master_Transmit(&hi2c2, expander_address, data_buffer,
-			sizeof(data_buffer), 500);
-
-	// Set I2C expander register address into data buffer
-	data_buffer[0] = gpioaaddress;
-
+	setExpRegAddr();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -173,14 +149,7 @@ int main(void)
 		else
 			i++;
 
-		//	OAMP Gain & Input impedance settings via MODBUS
-		if ((current_gain != conf.amp.gain) || (current_load != conf.amp.load))
-		{
-			current_load = conf.amp.load;
-			current_gain = conf.amp.gain;
-			data_buffer[1] = (1u << (current_load)) | (1u << (current_gain + 4));
-			HAL_I2C_Master_Transmit(&hi2c2, expander_address, data_buffer,sizeof(data_buffer), 500);
-		}
+		checkNewPar(&current_gain, &current_load, &conf);
 
 		/* Low priority - slow handles */
 		if (TICK_EXPIRED(tick))
