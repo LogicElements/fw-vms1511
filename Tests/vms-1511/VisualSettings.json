@@ -1,7 +1,7 @@
 ﻿{
     "width": 686,
-    "height": 648,
-    "slave_address": 63,
+    "height": 744,
+    "slave_address": 36,
     "reg_map": "Vms1511_Modbus.json",
     "attempts": 2,
     "retry_delay": 0.5,
